@@ -66,7 +66,21 @@ export const AutoSendrVideo: React.FC = () => {
       {/* Background music - starts at 1:59 in the audio file */}
       <Audio
         src={staticFile("AutoSendr Sound.mp3")}
-        volume={0.8}
+        volume={(f) => {
+          const fadeInDuration = 60; // 2 seconds fade in
+          const fadeOutStart = 1350 - 60; // Start fade out 2 seconds before end
+          const fadeOutDuration = 60;
+
+          // Fade in
+          if (f < fadeInDuration) {
+            return interpolate(f, [0, fadeInDuration], [0, 0.8]);
+          }
+          // Fade out
+          if (f > fadeOutStart) {
+            return interpolate(f, [fadeOutStart, fadeOutStart + fadeOutDuration], [0.8, 0]);
+          }
+          return 0.8;
+        }}
         startFrom={119 * 30}  // 1 min 59 sec = 119 seconds × 30 fps = 3570 frames
       />
 

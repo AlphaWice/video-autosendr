@@ -5,6 +5,9 @@ import {
   spring,
   interpolate,
   Easing,
+  Audio,
+  Sequence,
+  staticFile,
 } from "remotion";
 import { AnimatedBackground } from "../components/AnimatedBackground";
 
@@ -601,13 +604,23 @@ const DangerVignette: React.FC = () => {
   );
 };
 
+// ============================================
+// CINEMATIC HIT TIMING - EDIT THESE VALUES
+// ============================================
+const CINEMATIC_HIT_TIMES = {
+  hit1: 20,  // Frame when first hit plays (Problem 1: "Scattered messaging")
+  hit2: 40,  // Frame when second hit plays (Problem 2: "Missed follow-ups")
+  hit3: 60,  // Frame when third hit plays (Problem 3: "Lost leads")
+};
+// ============================================
+
 export const ProblemScene: React.FC = () => {
   const frame = useCurrentFrame();
 
   const problems = [
-    { text: "Scattered messaging", delay: 20 },
-    { text: "Missed follow-ups", delay: 40 },
-    { text: "Lost leads", delay: 60 },
+    { text: "Scattered messaging", delay: CINEMATIC_HIT_TIMES.hit1 },
+    { text: "Missed follow-ups", delay: CINEMATIC_HIT_TIMES.hit2 },
+    { text: "Lost leads", delay: CINEMATIC_HIT_TIMES.hit3 },
   ];
 
   // Global zoom effect - subtle pulse, not starting zoomed in
@@ -621,6 +634,17 @@ export const ProblemScene: React.FC = () => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#0a0a0a', overflow: 'hidden' }}>
+      {/* Cinematic hit sound effects */}
+      <Sequence from={CINEMATIC_HIT_TIMES.hit1}>
+        <Audio src={staticFile("cinematic hit trim.mov")} volume={0.9} />
+      </Sequence>
+      <Sequence from={CINEMATIC_HIT_TIMES.hit2}>
+        <Audio src={staticFile("cinematic hit trim.mov")} volume={0.9} />
+      </Sequence>
+      <Sequence from={CINEMATIC_HIT_TIMES.hit3}>
+        <Audio src={staticFile("cinematic hit trim.mov")} volume={0.9} />
+      </Sequence>
+
       <ScreenShake intensity={12}>
         <div style={{
           transform: `scale(${zoom})`,

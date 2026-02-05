@@ -12,7 +12,10 @@ import {
 import { AnimatedBackground } from "../components/AnimatedBackground";
 
 // Glitch text effect with chromatic aberration
-const GlitchText: React.FC<{ text: string; delay: number }> = ({ text, delay }) => {
+const GlitchText: React.FC<{ text: string; delay: number }> = ({
+  text,
+  delay,
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
@@ -22,7 +25,9 @@ const GlitchText: React.FC<{ text: string; delay: number }> = ({ text, delay }) 
     config: { damping: 12, mass: 0.5, stiffness: 100 },
   });
 
-  const opacity = interpolate(progress, [0, 0.5], [0, 1], { extrapolateRight: 'clamp' });
+  const opacity = interpolate(progress, [0, 0.5], [0, 1], {
+    extrapolateRight: "clamp",
+  });
 
   // Random glitch offsets
   const glitchTime = frame - delay;
@@ -35,43 +40,55 @@ const GlitchText: React.FC<{ text: string; delay: number }> = ({ text, delay }) 
   const blueOffset = isGlitching ? 3 : 0;
 
   // Text scramble effect
-  const scrambleProgress = interpolate(glitchTime, [0, 15], [0, 1], { extrapolateRight: 'clamp' });
-  const displayText = scrambleProgress < 1
-    ? text.split('').map((char, i) => {
-        if (Math.random() > scrambleProgress + 0.3) {
-          const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-          return chars[Math.floor(Math.random() * chars.length)];
-        }
-        return char;
-      }).join('')
-    : text;
+  const scrambleProgress = interpolate(glitchTime, [0, 30], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+  const displayText =
+    scrambleProgress < 1
+      ? text
+          .split("")
+          .map((char, i) => {
+            if (Math.random() > scrambleProgress + 0.3) {
+              const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+              return chars[Math.floor(Math.random() * chars.length)];
+            }
+            return char;
+          })
+          .join("")
+      : text;
 
   return (
-    <div style={{ position: 'relative', opacity }}>
+    <div style={{ position: "relative", opacity }}>
       {/* Red channel offset */}
-      <span style={{
-        position: 'absolute',
-        color: 'rgba(255,0,0,0.8)',
-        transform: `translate(${redOffset + glitchX}px, ${glitchY}px)`,
-        mixBlendMode: 'screen',
-      }}>
+      <span
+        style={{
+          position: "absolute",
+          color: "rgba(255,0,0,0.8)",
+          transform: `translate(${redOffset + glitchX}px, ${glitchY}px)`,
+          mixBlendMode: "screen",
+        }}
+      >
         {displayText}
       </span>
       {/* Blue channel offset */}
-      <span style={{
-        position: 'absolute',
-        color: 'rgba(0,100,255,0.8)',
-        transform: `translate(${blueOffset + glitchX}px, ${-glitchY}px)`,
-        mixBlendMode: 'screen',
-      }}>
+      <span
+        style={{
+          position: "absolute",
+          color: "rgba(0,100,255,0.8)",
+          transform: `translate(${blueOffset + glitchX}px, ${-glitchY}px)`,
+          mixBlendMode: "screen",
+        }}
+      >
         {displayText}
       </span>
       {/* Main text */}
-      <span style={{
-        position: 'relative',
-        color: '#fff',
-        transform: `translate(${glitchX}px, ${glitchY}px)`,
-      }}>
+      <span
+        style={{
+          position: "relative",
+          color: "#fff",
+          transform: `translate(${glitchX}px, ${glitchY}px)`,
+        }}
+      >
         {displayText}
       </span>
     </div>
@@ -79,7 +96,11 @@ const GlitchText: React.FC<{ text: string; delay: number }> = ({ text, delay }) 
 };
 
 // Explosive impact particles
-const ImpactParticles: React.FC<{ delay: number; x: number; y: number }> = ({ delay, x, y }) => {
+const ImpactParticles: React.FC<{ delay: number; x: number; y: number }> = ({
+  delay,
+  x,
+  y,
+}) => {
   const frame = useCurrentFrame();
   const particleFrame = frame - delay - 10;
 
@@ -103,15 +124,15 @@ const ImpactParticles: React.FC<{ delay: number; x: number; y: number }> = ({ de
         <div
           key={i}
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: x + p.px,
             top: y + p.py,
             width: p.size,
             height: p.size,
-            backgroundColor: '#ff6b6b',
-            borderRadius: '50%',
+            backgroundColor: "#ff6b6b",
+            borderRadius: "50%",
             opacity: p.opacity,
-            boxShadow: '0 0 10px #ff6b6b, 0 0 20px #ff0000',
+            boxShadow: "0 0 10px #ff6b6b, 0 0 20px #ff0000",
           }}
         />
       ))}
@@ -120,7 +141,11 @@ const ImpactParticles: React.FC<{ delay: number; x: number; y: number }> = ({ de
 };
 
 // Shockwave ring effect
-const ShockwaveRing: React.FC<{ delay: number; x: number; y: number }> = ({ delay, x, y }) => {
+const ShockwaveRing: React.FC<{ delay: number; x: number; y: number }> = ({
+  delay,
+  x,
+  y,
+}) => {
   const frame = useCurrentFrame();
   const ringFrame = frame - delay - 8;
 
@@ -133,12 +158,12 @@ const ShockwaveRing: React.FC<{ delay: number; x: number; y: number }> = ({ dela
   return (
     <div
       style={{
-        position: 'absolute',
+        position: "absolute",
         left: x - 150,
         top: y - 150,
         width: 300,
         height: 300,
-        borderRadius: '50%',
+        borderRadius: "50%",
         border: `${borderWidth}px solid rgba(255,107,107,${opacity})`,
         transform: `scale(${scale})`,
         boxShadow: `0 0 30px rgba(255,0,0,${opacity * 0.5})`,
@@ -166,10 +191,12 @@ const SlashingCross: React.FC<{ delay: number }> = ({ delay }) => {
   const glow = glowFrame > 0 ? Math.sin(glowFrame * 0.2) * 10 + 15 : 0;
 
   return (
-    <div style={{
-      transform: `rotate(${rotateIn}deg) scale(${scale})`,
-      filter: `drop-shadow(0 0 ${glow}px #ff0000)`,
-    }}>
+    <div
+      style={{
+        transform: `rotate(${rotateIn}deg) scale(${scale})`,
+        filter: `drop-shadow(0 0 ${glow}px #ff0000)`,
+      }}
+    >
       <svg width="40" height="40" viewBox="0 0 24 24">
         <path
           d="M18 6L6 18"
@@ -185,7 +212,13 @@ const SlashingCross: React.FC<{ delay: number }> = ({ delay }) => {
           strokeWidth="4"
           strokeLinecap="round"
           strokeDasharray="20"
-          strokeDashoffset={20 - 20 * interpolate(slashProgress, [0.3, 1], [0, 1], { extrapolateLeft: 'clamp' })}
+          strokeDashoffset={
+            20 -
+            20 *
+              interpolate(slashProgress, [0.3, 1], [0, 1], {
+                extrapolateLeft: "clamp",
+              })
+          }
         />
       </svg>
     </div>
@@ -197,31 +230,36 @@ const ScanLines: React.FC = () => {
   const frame = useCurrentFrame();
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      background: `repeating-linear-gradient(
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: `repeating-linear-gradient(
         0deg,
         transparent,
         transparent 2px,
         rgba(0,0,0,0.1) 2px,
         rgba(0,0,0,0.1) 4px
       )`,
-      pointerEvents: 'none',
-      opacity: 0.5,
-    }}>
+        pointerEvents: "none",
+        opacity: 0.5,
+      }}
+    >
       {/* Moving scan line */}
-      <div style={{
-        position: 'absolute',
-        width: '100%',
-        height: 4,
-        background: 'linear-gradient(90deg, transparent, rgba(255,100,100,0.3), transparent)',
-        top: (frame * 8) % 1200 - 100,
-        boxShadow: '0 0 20px rgba(255,0,0,0.5)',
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: 4,
+          background:
+            "linear-gradient(90deg, transparent, rgba(255,100,100,0.3), transparent)",
+          top: ((frame * 8) % 1200) - 100,
+          boxShadow: "0 0 20px rgba(255,0,0,0.5)",
+        }}
+      />
     </div>
   );
 };
@@ -236,21 +274,26 @@ const WarningFlash: React.FC<{ delay: number }> = ({ delay }) => {
   const opacity = interpolate(flashFrame, [0, 3, 10], [0.3, 0.15, 0]);
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: '#ff0000',
-      opacity,
-      pointerEvents: 'none',
-    }} />
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#ff0000",
+        opacity,
+        pointerEvents: "none",
+      }}
+    />
   );
 };
 
 // Screen shake wrapper
-const ScreenShake: React.FC<{ children: React.ReactNode; intensity: number }> = ({ children, intensity }) => {
+const ScreenShake: React.FC<{
+  children: React.ReactNode;
+  intensity: number;
+}> = ({ children, intensity }) => {
   const frame = useCurrentFrame();
 
   // Shake on specific frames (when cards appear)
@@ -268,14 +311,16 @@ const ScreenShake: React.FC<{ children: React.ReactNode; intensity: number }> = 
   });
 
   return (
-    <div style={{
-      transform: `translate(${shakeX}px, ${shakeY}px)`,
-      width: '100%',
-      height: '100%',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    }}>
+    <div
+      style={{
+        transform: `translate(${shakeX}px, ${shakeY}px)`,
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        top: 0,
+        left: 0,
+      }}
+    >
       {children}
     </div>
   );
@@ -304,12 +349,13 @@ const ChaosParticles: React.FC = () => {
         <div
           key={i}
           style={{
-            position: 'absolute',
+            position: "absolute",
             left: f.x,
             top: f.y,
             width: f.size,
             height: f.size,
-            backgroundColor: i % 2 === 0 ? 'rgba(255,107,107,0.3)' : 'rgba(255,255,255,0.1)',
+            backgroundColor:
+              i % 2 === 0 ? "rgba(255,107,107,0.3)" : "rgba(255,255,255,0.1)",
             transform: `rotate(${f.rotation}deg)`,
             opacity: f.opacity,
           }}
@@ -320,8 +366,13 @@ const ChaosParticles: React.FC = () => {
 };
 
 // Electric arc effect
-const ElectricArc: React.FC<{ delay: number; startX: number; startY: number; endX: number; endY: number }> =
-  ({ delay, startX, startY, endX, endY }) => {
+const ElectricArc: React.FC<{
+  delay: number;
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+}> = ({ delay, startX, startY, endX, endY }) => {
   const frame = useCurrentFrame();
   const arcFrame = frame - delay;
 
@@ -341,14 +392,20 @@ const ElectricArc: React.FC<{ delay: number; startX: number; startY: number; end
   points.push(`${endX},${endY}`);
 
   return (
-    <svg width="1920" height="1080" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}>
+    <svg
+      width="1920"
+      height="1080"
+      style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}
+    >
       <polyline
-        points={points.join(' ')}
+        points={points.join(" ")}
         fill="none"
         stroke="#ff6b6b"
         strokeWidth="3"
         opacity={opacity}
-        style={{ filter: 'drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 20px #ff6b6b)' }}
+        style={{
+          filter: "drop-shadow(0 0 10px #ff0000) drop-shadow(0 0 20px #ff6b6b)",
+        }}
       />
     </svg>
   );
@@ -387,25 +444,32 @@ const AnimatedProblemCard: React.FC<{
   });
   const rotate = interpolate(entryProgress, [0, 1], [dir.rotate, 0]);
   const scale = interpolate(entryProgress, [0, 0.7, 1], [0.3, 1.15, 1]);
-  const opacity = interpolate(entryProgress, [0, 0.3], [0, 1], { extrapolateRight: 'clamp' });
+  const opacity = interpolate(entryProgress, [0, 0.3], [0, 1], {
+    extrapolateRight: "clamp",
+  });
 
   // Impact bounce after landing
   const impactFrame = frame - delay - 15;
-  const impactBounce = impactFrame > 0 && impactFrame < 15
-    ? Math.sin(impactFrame * 0.8) * Math.exp(-impactFrame * 0.2) * 8
-    : 0;
+  const impactBounce =
+    impactFrame > 0 && impactFrame < 15
+      ? Math.sin(impactFrame * 0.8) * Math.exp(-impactFrame * 0.2) * 8
+      : 0;
 
   // Continuous subtle hover animation
   const hoverY = Math.sin((frame - delay) * 0.08) * 3;
   const hoverRotate = Math.sin((frame - delay) * 0.05) * 0.5;
 
   // Pulsing danger glow
-  const glowIntensity = frame > delay + 20
-    ? Math.sin((frame - delay) * 0.15) * 0.4 + 0.6
-    : 0;
+  const glowIntensity =
+    frame > delay + 20 ? Math.sin((frame - delay) * 0.15) * 0.4 + 0.6 : 0;
 
   // Card width animation (slam effect)
-  const widthStretch = interpolate(entryProgress, [0.8, 0.9, 1], [1.1, 0.95, 1], { extrapolateLeft: 'clamp' });
+  const widthStretch = interpolate(
+    entryProgress,
+    [0.8, 0.9, 1],
+    [1.1, 0.95, 1],
+    { extrapolateLeft: "clamp" },
+  );
 
   return (
     <div
@@ -431,7 +495,7 @@ const AnimatedProblemCard: React.FC<{
           0 0 ${60 * glowIntensity}px rgba(255,0,0,0.2),
           inset 0 0 30px rgba(255,50,50,0.1)
         `,
-        backdropFilter: 'blur(10px)',
+        backdropFilter: "blur(10px)",
       }}
     >
       <div
@@ -443,7 +507,7 @@ const AnimatedProblemCard: React.FC<{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          border: '2px solid rgba(255,107,107,0.3)',
+          border: "2px solid rgba(255,107,107,0.3)",
           flexShrink: 0,
         }}
       >
@@ -468,8 +532,12 @@ const DramaticTitle: React.FC = () => {
   });
 
   const scale = interpolate(progress, [0, 0.5, 1], [3, 0.9, 1]);
-  const opacity = interpolate(progress, [0, 0.3], [0, 1], { extrapolateRight: 'clamp' });
-  const blur = interpolate(progress, [0, 0.5], [20, 0], { extrapolateRight: 'clamp' });
+  const opacity = interpolate(progress, [0, 0.3], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+  const blur = interpolate(progress, [0, 0.5], [20, 0], {
+    extrapolateRight: "clamp",
+  });
   const y = interpolate(progress, [0, 1], [-50, 0]);
 
   // Glitch flicker
@@ -510,38 +578,42 @@ const WarningStripes: React.FC = () => {
 
   return (
     <>
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        height: 8,
-        background: `repeating-linear-gradient(
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 8,
+          background: `repeating-linear-gradient(
           45deg,
           #ff6b6b,
           #ff6b6b 20px,
           #1a1a1a 20px,
           #1a1a1a 40px
         )`,
-        backgroundPosition: `${offset}px 0`,
-        opacity: 0.8,
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 8,
-        background: `repeating-linear-gradient(
+          backgroundPosition: `${offset}px 0`,
+          opacity: 0.8,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 8,
+          background: `repeating-linear-gradient(
           -45deg,
           #ff6b6b,
           #ff6b6b 20px,
           #1a1a1a 20px,
           #1a1a1a 40px
         )`,
-        backgroundPosition: `${-offset}px 0`,
-        opacity: 0.8,
-      }} />
+          backgroundPosition: `${-offset}px 0`,
+          opacity: 0.8,
+        }}
+      />
     </>
   );
 };
@@ -563,16 +635,16 @@ const DangerRings: React.FC = () => {
           <div
             key={i}
             style={{
-              position: 'absolute',
+              position: "absolute",
               left: 960 - 300, // Center of 1920
               top: 540 - 300, // Center of 1080
               width: 600,
               height: 600,
-              borderRadius: '50%',
-              border: '3px solid rgba(255,50,50,0.5)',
+              borderRadius: "50%",
+              border: "3px solid rgba(255,50,50,0.5)",
               transform: `scale(${scale})`,
               opacity,
-              pointerEvents: 'none',
+              pointerEvents: "none",
             }}
           />
         );
@@ -587,20 +659,22 @@ const DangerVignette: React.FC = () => {
   const pulse = Math.sin(frame * 0.08) * 0.1 + 0.9;
 
   return (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      background: `radial-gradient(
+    <div
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: `radial-gradient(
         ellipse at center,
         transparent 30%,
         rgba(80,0,0,${0.3 * pulse}) 70%,
         rgba(40,0,0,${0.6 * pulse}) 100%
       )`,
-      pointerEvents: 'none',
-    }} />
+        pointerEvents: "none",
+      }}
+    />
   );
 };
 
@@ -608,9 +682,9 @@ const DangerVignette: React.FC = () => {
 // CINEMATIC HIT TIMING - EDIT THESE VALUES
 // ============================================
 const CINEMATIC_HIT_TIMES = {
-  hit1: 20,  // Frame when first hit plays (Problem 1: "Scattered messaging")
-  hit2: 40,  // Frame when second hit plays (Problem 2: "Missed follow-ups")
-  hit3: 60,  // Frame when third hit plays (Problem 3: "Lost leads")
+  hit1: 20, // Frame when first hit plays (Problem 1: "Scattered messaging")
+  hit2: 40, // Frame when second hit plays (Problem 2: "Missed follow-ups")
+  hit3: 60, // Frame when third hit plays (Problem 3: "Lost leads")
 };
 // ============================================
 
@@ -625,7 +699,7 @@ export const ProblemScene: React.FC = () => {
 
   // Global zoom effect - subtle pulse, not starting zoomed in
   const zoom = interpolate(frame, [0, 20, 90, 120], [1, 1, 1, 1.01], {
-    extrapolateRight: 'clamp',
+    extrapolateRight: "clamp",
   });
 
   // Card vertical positions (centered on 1080p screen)
@@ -633,7 +707,7 @@ export const ProblemScene: React.FC = () => {
   const cardSpacing = 115; // Space between cards
 
   return (
-    <AbsoluteFill style={{ backgroundColor: '#0a0a0a', overflow: 'hidden' }}>
+    <AbsoluteFill style={{ backgroundColor: "#0a0a0a", overflow: "hidden" }}>
       {/* Cinematic hit sound effects */}
       <Sequence from={CINEMATIC_HIT_TIMES.hit1}>
         <Audio src={staticFile("cinematic hit trim.mov")} volume={0.9} />
@@ -646,15 +720,17 @@ export const ProblemScene: React.FC = () => {
       </Sequence>
 
       <ScreenShake intensity={12}>
-        <div style={{
-          transform: `scale(${zoom})`,
-          transformOrigin: 'center center',
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-        }}>
+        <div
+          style={{
+            transform: `scale(${zoom})`,
+            transformOrigin: "center center",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        >
           <AnimatedBackground variant="default" />
 
           {/* Chaos elements */}
@@ -668,16 +744,44 @@ export const ProblemScene: React.FC = () => {
           <ScanLines />
 
           {/* Electric arcs */}
-          <ElectricArc delay={22} startX={200} startY={350} endX={450} endY={480} />
-          <ElectricArc delay={42} startX={1700} startY={450} endX={1450} endY={580} />
-          <ElectricArc delay={62} startX={250} startY={650} endX={500} endY={750} />
+          <ElectricArc
+            delay={22}
+            startX={200}
+            startY={350}
+            endX={450}
+            endY={480}
+          />
+          <ElectricArc
+            delay={42}
+            startX={1700}
+            startY={450}
+            endX={1450}
+            endY={580}
+          />
+          <ElectricArc
+            delay={62}
+            startX={250}
+            startY={650}
+            endX={500}
+            endY={750}
+          />
 
           {/* Impact effects for each card */}
           {problems.map((p, i) => (
-            <ShockwaveRing key={`shock-${i}`} delay={p.delay} x={960} y={cardStartY + i * cardSpacing} />
+            <ShockwaveRing
+              key={`shock-${i}`}
+              delay={p.delay}
+              x={960}
+              y={cardStartY + i * cardSpacing}
+            />
           ))}
           {problems.map((p, i) => (
-            <ImpactParticles key={`impact-${i}`} delay={p.delay} x={960} y={cardStartY + i * cardSpacing} />
+            <ImpactParticles
+              key={`impact-${i}`}
+              delay={p.delay}
+              x={960}
+              y={cardStartY + i * cardSpacing}
+            />
           ))}
 
           {/* Warning flashes */}

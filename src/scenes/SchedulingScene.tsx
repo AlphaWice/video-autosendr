@@ -48,7 +48,7 @@ export const SchedulingScene: React.FC = () => {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const cursorY = interpolate(frame, [40, 60, 85, 110], [150, 280, 250, 480], {
+  const cursorY = interpolate(frame, [40, 60, 85, 110], [190, 280, 250, 480], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -125,7 +125,6 @@ export const SchedulingScene: React.FC = () => {
                 display: "block",
               }}
             />
-
             {/* Contact field highlight */}
             <div
               style={{
@@ -141,7 +140,6 @@ export const SchedulingScene: React.FC = () => {
                 background: "rgba(59, 130, 246, 0.05)",
               }}
             />
-
             {/* Message field highlight */}
             <div
               style={{
@@ -157,7 +155,6 @@ export const SchedulingScene: React.FC = () => {
                 background: "rgba(139, 92, 246, 0.05)",
               }}
             />
-
             {/* Calendar highlight */}
             <div
               style={{
@@ -173,8 +170,7 @@ export const SchedulingScene: React.FC = () => {
                 background: "rgba(34, 197, 94, 0.05)",
               }}
             />
-
-            {/* Time picker highlight */}
+            _{/* Time picker highlight */}
             <div
               style={{
                 position: "absolute",
@@ -189,7 +185,6 @@ export const SchedulingScene: React.FC = () => {
                 background: "rgba(245, 158, 11, 0.05)",
               }}
             />
-
             {/* Animated cursor */}
             <div
               style={{

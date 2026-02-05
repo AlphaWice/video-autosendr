@@ -99,8 +99,8 @@ export const AutoSendrVideo: React.FC = () => {
           timing={linearTiming({ durationInFrames: transitionDuration })}
         />
 
-        {/* Scene 8: Trust/Privacy (36-39 sec) */}
-        <TransitionSeries.Sequence durationInFrames={90}>
+        {/* Scene 8: Trust/Privacy (36-41 sec) */}
+        <TransitionSeries.Sequence durationInFrames={150}>
           <PrivacyScene />
         </TransitionSeries.Sequence>
 

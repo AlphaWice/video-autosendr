@@ -558,7 +558,7 @@ const AnimatedCounter: React.FC<{ delay: number; target: number }> = ({ delay, t
   const progress = spring({
     frame: frame - delay,
     fps,
-    config: { damping: 30, mass: 0.8, stiffness: 60 },
+    config: { damping: 50, mass: 1.5, stiffness: 30 },
   });
 
   const count = Math.round(progress * target);
@@ -687,8 +687,8 @@ const TitleSection: React.FC = () => {
         for...
       </div>
 
-      {/* Counter */}
-      <div style={{ marginTop: 50 }}>
+      {/* Counter - fixed height to prevent layout shift */}
+      <div style={{ marginTop: 50, height: 80 }}>
         <AnimatedCounter delay={80} target={20} />
       </div>
     </div>

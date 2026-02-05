@@ -18,7 +18,7 @@ const FloatingParticles: React.FC = () => {
     const x = baseX + Math.sin(frame * speed + i * 0.5) * 40;
     const y = baseY + Math.cos(frame * speed * 0.7 + i) * 30;
     const size = 3 + (i % 4) * 1.5;
-    const opacity = 0.15 + Math.sin(frame * 0.04 + i) * 0.1;
+    const opacity = 0.08 + Math.sin(frame * 0.04 + i) * 0.05;
 
     return { x, y, size, opacity };
   });
@@ -37,7 +37,7 @@ const FloatingParticles: React.FC = () => {
             borderRadius: '50%',
             backgroundColor: '#fff',
             opacity: p.opacity,
-            boxShadow: '0 0 8px rgba(255,255,255,0.3)',
+            boxShadow: '0 0 6px rgba(255,255,255,0.15)',
           }}
         />
       ))}
@@ -50,10 +50,10 @@ const GlowingOrbs: React.FC = () => {
   const frame = useCurrentFrame();
 
   const orbs = [
-    { x: 250, y: 300, size: 300, color: 'rgba(34,197,94,0.08)' },
-    { x: 1650, y: 400, size: 350, color: 'rgba(255,255,255,0.05)' },
-    { x: 300, y: 750, size: 250, color: 'rgba(34,197,94,0.06)' },
-    { x: 1600, y: 800, size: 280, color: 'rgba(255,255,255,0.04)' },
+    { x: 250, y: 300, size: 300, color: 'rgba(34,197,94,0.06)' },
+    { x: 1650, y: 400, size: 350, color: 'rgba(34,197,94,0.03)' },
+    { x: 300, y: 750, size: 250, color: 'rgba(34,197,94,0.05)' },
+    { x: 1600, y: 800, size: 280, color: 'rgba(34,197,94,0.03)' },
   ];
 
   return (
@@ -106,7 +106,7 @@ const ElegantRings: React.FC = () => {
               width: 300,
               height: 300,
               borderRadius: '50%',
-              border: '2px solid rgba(255,255,255,0.3)',
+              border: '2px solid rgba(255,255,255,0.1)',
               transform: `scale(${scale})`,
               opacity,
             }}

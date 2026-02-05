@@ -565,7 +565,7 @@ const DramaticTitle: React.FC = () => {
         `,
       }}
     >
-      ⚠ THE PROBLEM ⚠
+      ⚠ THE PROBLEMS ⚠
     </div>
   );
 };

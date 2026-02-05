@@ -29,7 +29,7 @@ export const FloatingShapes: React.FC = () => {
               top: shape.y + floatY,
               width: shape.size * pulse,
               height: shape.size * pulse,
-              border: "2px solid rgba(255,255,255,0.1)",
+              border: "1px solid rgba(255,255,255,0.04)",
               borderRadius: shape.type === "circle" ? "50%" : "8px",
               transform: `rotate(${rotation}deg)`,
             }}
@@ -81,7 +81,7 @@ export const AnimatedLines: React.FC = () => {
       {/* Animated diagonal lines */}
       {Array.from({ length: 8 }).map((_, i) => {
         const progress = ((frame * 2 + i * 100) % 600) / 600;
-        const opacity = interpolate(progress, [0, 0.5, 1], [0, 0.15, 0]);
+        const opacity = interpolate(progress, [0, 0.5, 1], [0, 0.08, 0]);
         const x = interpolate(progress, [0, 1], [-200, 2120]);
 
         return (
@@ -116,7 +116,7 @@ export const PulsingRing: React.FC<{
       {rings.map((ringDelay, i) => {
         const progress = ((frame - delay - ringDelay) % 60) / 60;
         const scale = interpolate(progress, [0, 1], [0.5, 1.5]);
-        const opacity = interpolate(progress, [0, 0.2, 1], [0, 0.3, 0]);
+        const opacity = interpolate(progress, [0, 0.2, 1], [0, 0.15, 0]);
 
         return (
           <div
@@ -128,7 +128,7 @@ export const PulsingRing: React.FC<{
               width: size,
               height: size,
               borderRadius: "50%",
-              border: "2px solid #fff",
+              border: "1px solid rgba(34,197,94,0.2)",
               transform: `scale(${scale})`,
               opacity,
             }}

@@ -16,7 +16,7 @@ const generateParticles = (count: number): Particle[] => {
       y: Math.random() * 1080,
       size: Math.random() * 4 + 1,
       speed: Math.random() * 0.5 + 0.2,
-      opacity: Math.random() * 0.3 + 0.1,
+      opacity: Math.random() * 0.15 + 0.05,
     });
   }
   return particles;
@@ -51,7 +51,7 @@ export const AnimatedBackground: React.FC<{
           height: "100%",
           background:
             variant === "gradient"
-              ? `radial-gradient(ellipse at 50% 50%, rgba(40,40,40,0.8) 0%, rgba(0,0,0,1) 70%)`
+              ? `radial-gradient(ellipse at 50% 50%, rgba(20,20,20,0.4) 0%, rgba(0,0,0,1) 60%)`
               : "transparent",
         }}
       />
@@ -117,7 +117,7 @@ export const AnimatedBackground: React.FC<{
         );
       })}
 
-      {/* Animated glow orbs */}
+      {/* Animated glow orbs - very subtle */}
       <div
         style={{
           position: "absolute",
@@ -127,7 +127,7 @@ export const AnimatedBackground: React.FC<{
           height: 400,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,255,255,0.008) 0%, transparent 70%)",
           transform: `translate(${Math.sin(frame * 0.02) * 50}px, ${Math.cos(frame * 0.02) * 30}px)`,
         }}
       />
@@ -140,7 +140,7 @@ export const AnimatedBackground: React.FC<{
           height: 300,
           borderRadius: "50%",
           background:
-            "radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,255,255,0.005) 0%, transparent 70%)",
           transform: `translate(${Math.cos(frame * 0.015) * 40}px, ${Math.sin(frame * 0.015) * 40}px)`,
         }}
       />

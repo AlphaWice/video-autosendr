@@ -426,10 +426,10 @@ const FloatingParticles: React.FC = () => {
     const x = (i * 103) % 1920;
     const y = (i * 67) % 1080;
     const speed = 0.015 + (i % 5) * 0.005;
-    const floatX = Math.sin(frame * speed + i) * 40;
-    const floatY = Math.cos(frame * speed * 0.8 + i * 0.5) * 30;
-    const size = 3 + (i % 4);
-    const opacity = 0.1 + (i % 4) * 0.05;
+    const floatX = Math.sin(frame * speed + i) * 50;
+    const floatY = Math.cos(frame * speed * 0.8 + i * 0.5) * 40;
+    const size = 4 + (i % 5) * 1.5;
+    const opacity = 0.12 + (i % 4) * 0.06;
 
     return { x: x + floatX, y: y + floatY, size, opacity };
   });
@@ -489,7 +489,7 @@ const UseCaseCard: React.FC<{
     fps,
     config: { damping: 25, mass: 0.5, stiffness: 120 },
   });
-  const lineWidth = interpolate(lineProgress, [0, 1], [0, 50]);
+  const lineWidth = interpolate(lineProgress, [0, 1], [0, 60]);
 
   return (
     <div
@@ -499,15 +499,15 @@ const UseCaseCard: React.FC<{
         filter: `blur(${blur}px)`,
         display: "flex",
         alignItems: "center",
-        gap: 20,
-        padding: "16px 0",
+        gap: 24,
+        padding: "18px 0",
       }}
     >
       {/* Animated line connector */}
       <div
         style={{
           width: lineWidth,
-          height: 2,
+          height: 3,
           background: "linear-gradient(90deg, rgba(34,197,94,0.8), transparent)",
           borderRadius: 2,
         }}
@@ -516,18 +516,18 @@ const UseCaseCard: React.FC<{
       {/* Icon container with glow */}
       <div
         style={{
-          width: 60,
-          height: 60,
-          borderRadius: 16,
+          width: 76,
+          height: 76,
+          borderRadius: 20,
           background: "rgba(34,197,94,0.08)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           boxShadow: `
-            0 0 ${25 * glowIntensity}px rgba(34,197,94,0.2),
-            inset 0 0 20px rgba(34,197,94,0.05)
+            0 0 ${30 * glowIntensity}px rgba(34,197,94,0.25),
+            inset 0 0 25px rgba(34,197,94,0.05)
           `,
-          border: "1px solid rgba(34,197,94,0.25)",
+          border: "1.5px solid rgba(34,197,94,0.3)",
           flexShrink: 0,
         }}
       >
@@ -537,7 +537,7 @@ const UseCaseCard: React.FC<{
       {/* Text with better typography */}
       <span
         style={{
-          fontSize: 30,
+          fontSize: 38,
           fontWeight: 500,
           color: "#fff",
           letterSpacing: "-0.3px",
@@ -580,10 +580,10 @@ const AnimatedCounter: React.FC<{ delay: number; target: number }> = ({ delay, t
     >
       <span
         style={{
-          fontSize: 72,
+          fontSize: 90,
           fontWeight: 800,
           color: "#fff",
-          letterSpacing: "-3px",
+          letterSpacing: "-4px",
           fontVariantNumeric: "tabular-nums",
         }}
       >
@@ -591,7 +591,7 @@ const AnimatedCounter: React.FC<{ delay: number; target: number }> = ({ delay, t
       </span>
       <span
         style={{
-          fontSize: 22,
+          fontSize: 28,
           color: "rgba(255,255,255,0.5)",
           fontWeight: 500,
           letterSpacing: "0.5px",
@@ -643,11 +643,11 @@ const TitleSection: React.FC = () => {
         style={{
           opacity: labelOpacity,
           transform: `translateY(${labelY}px)`,
-          fontSize: 18,
+          fontSize: 24,
           color: "rgba(255,255,255,0.4)",
           textTransform: "uppercase",
-          letterSpacing: 5,
-          marginBottom: 24,
+          letterSpacing: 6,
+          marginBottom: 28,
           fontWeight: 600,
         }}
       >
@@ -659,11 +659,11 @@ const TitleSection: React.FC = () => {
         style={{
           opacity: titleOpacity,
           transform: `translateY(${titleY}px)`,
-          fontSize: 68,
+          fontSize: 86,
           fontWeight: 800,
           color: "#fff",
           lineHeight: 1.05,
-          letterSpacing: "-2px",
+          letterSpacing: "-3px",
         }}
       >
         Perfect
@@ -674,21 +674,21 @@ const TitleSection: React.FC = () => {
         style={{
           opacity: subtitleOpacity,
           transform: `translateY(${subtitleY}px)`,
-          fontSize: 68,
+          fontSize: 86,
           fontWeight: 800,
           background: "linear-gradient(135deg, #22c55e 0%, #4ade80 50%, #86efac 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
           backgroundClip: "text",
           lineHeight: 1.05,
-          letterSpacing: "-2px",
+          letterSpacing: "-3px",
         }}
       >
         for...
       </div>
 
       {/* Counter - fixed height to prevent layout shift */}
-      <div style={{ marginTop: 50, height: 80 }}>
+      <div style={{ marginTop: 60, height: 100 }}>
         <AnimatedCounter delay={80} target={20} />
       </div>
     </div>
@@ -700,9 +700,9 @@ const GlowingOrbs: React.FC = () => {
   const frame = useCurrentFrame();
 
   const orbs = [
-    { x: 1650, y: 180, size: 200 },
-    { x: 120, y: 850, size: 180 },
-    { x: 1750, y: 700, size: 120 },
+    { x: 1650, y: 180, size: 280 },
+    { x: 120, y: 850, size: 250 },
+    { x: 1750, y: 700, size: 180 },
   ];
 
   return (
@@ -771,7 +771,7 @@ export const UseCasesScene: React.FC = () => {
               <UseCaseCard
                 key={useCase.text}
                 text={useCase.text}
-                icon={<useCase.Icon delay={useCase.delay} size={32} />}
+                icon={<useCase.Icon delay={useCase.delay} size={42} />}
                 delay={useCase.delay}
                 index={index}
               />

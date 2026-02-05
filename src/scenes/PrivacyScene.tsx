@@ -163,12 +163,12 @@ const HexShield: React.FC<{ delay: number }> = ({ delay }) => {
 const EncryptionStreams: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const streams = Array.from({ length: 12 }, (_, i) => {
-    const angle = (i / 12) * Math.PI * 2;
-    const startRadius = 400;
-    const endRadius = 100;
+  const streams = Array.from({ length: 16 }, (_, i) => {
+    const angle = (i / 16) * Math.PI * 2;
+    const startRadius = 500;
+    const endRadius = 120;
 
-    return { angle, startRadius, endRadius, offset: i * 8 };
+    return { angle, startRadius, endRadius, offset: i * 6 };
   });
 
   return (
@@ -180,7 +180,7 @@ const EncryptionStreams: React.FC = () => {
         const x = Math.cos(stream.angle) * radius;
         const y = Math.sin(stream.angle) * radius;
         const opacity = interpolate(progress, [0, 0.3, 0.8, 1], [0, 0.8, 0.6, 0]);
-        const size = interpolate(progress, [0, 1], [8, 3]);
+        const size = interpolate(progress, [0, 1], [12, 4]);
 
         return (
           <div
@@ -334,10 +334,10 @@ const LockBurst: React.FC<{ delay: number }> = ({ delay }) => {
 
   const particles = Array.from({ length: 24 }, (_, i) => {
     const angle = (i / 24) * Math.PI * 2;
-    const speed = 6 + (i % 4) * 2;
+    const speed = 8 + (i % 4) * 3;
     const distance = burstFrame * speed;
     const opacity = interpolate(burstFrame, [0, 15, 40], [1, 0.6, 0]);
-    const size = 4 + (i % 3) * 2;
+    const size = 6 + (i % 3) * 3;
 
     return {
       x: Math.cos(angle) * distance,

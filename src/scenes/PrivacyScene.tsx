@@ -47,8 +47,9 @@ const EpicLock: React.FC<{ delay: number }> = ({ delay }) => {
     <div style={{
       transform: `scale(${bodyProgress + lockBounce})`,
       filter: `drop-shadow(0 0 ${40 * glowPulse}px rgba(34,197,94,0.6))`,
+      overflow: 'visible',
     }}>
-      <svg width="180" height="240" viewBox="0 0 60 80">
+      <svg width="180" height="280" viewBox="0 -20 60 100" style={{ overflow: 'visible' }}>
         {/* Lock body */}
         <rect
           x="10"
@@ -648,10 +649,13 @@ export const PrivacyScene: React.FC = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            overflow: 'visible',
           }}
         >
           {/* Epic animated lock */}
-          <EpicLock delay={5} />
+          <div style={{ overflow: 'visible', marginBottom: -20 }}>
+            <EpicLock delay={5} />
+          </div>
 
           {/* Privacy text */}
           <PrivacyText delay={50} />
